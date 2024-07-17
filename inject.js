@@ -1,10 +1,37 @@
+const actions = [
+  {
+    id: "input1",
+    action: "type",
+    text: "Welcome to my automation script",
+  },
+  {
+    id: "btn1",
+    action: "click",
+  },
+];
+
+function alertUser() {
+  alert("Hello. This is a alert triggered by a script");
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   var button = document.createElement("button");
   button.textContent = "C";
   button.className = "intercom-button";
 
-  function runScript() {
-    console.log("Started running script");
+  function delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async function runScript() {
+    for (const action of actions) {
+      if (action.action === "click") {
+        document.getElementById(action.id).click();
+      } else if (action.action === "type") {
+        document.getElementById(action.id).value = action.text;
+      }
+      await delay(100);
+    }
   }
 
   button.addEventListener("click", runScript);
