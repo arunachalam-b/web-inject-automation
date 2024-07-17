@@ -1,20 +1,19 @@
-const actions = [
-  {
-    id: "input1",
-    action: "type",
-    text: "Welcome to my automation script",
-  },
-  {
-    id: "btn1",
-    action: "click",
-  },
-];
+async function fetchActions() {
+  const response = await fetch(
+    "https://gogosoon.s3.us-east-2.amazonaws.com/web-inject-automation-test/web-inject-automation.json"
+  );
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return await response.json();
+}
 
 function alertUser() {
   alert("Hello. This is a alert triggered by a script");
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+  const actions = await fetchActions();
   var button = document.createElement("button");
   button.textContent = "C";
   button.className = "intercom-button";
