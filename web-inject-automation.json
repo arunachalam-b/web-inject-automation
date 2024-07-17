@@ -1,0 +1,11 @@
+[
+  {
+    "id": "input1",
+    "action": "type",
+    "text": "Welcome to my automation script"
+  },
+  {
+    "id": "btn1",
+    "action": "click"
+  }
+]
