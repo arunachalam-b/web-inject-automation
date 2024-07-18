@@ -24,12 +24,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   async function runScript() {
     for (const action of actions) {
-      if (action.action === "click") {
-        document.getElementById(action.id).click();
-      } else if (action.action === "type") {
-        document.getElementById(action.id).value = action.text;
+      const { querySelector, action: userAction, text, waitTime } = action;
+      if (userAction === "click") {
+        document.querySelector(querySelector).click();
+      } else if (userAction === "type") {
+        document.querySelector(querySelector).value = action.text;
       }
-      await delay(100);
+      await delay(waitTime || 100);
     }
   }
 
