@@ -1,12 +1,12 @@
 [
   {
-    "querySelector": "input1",
+    "querySelector": "[id=input1]",
     "action": "type",
     "text": "Welcome to my automation script",
-    "waitTime": 1000
+    "waitTime": 2000
   },
   {
-    "querySelector": "btn1",
+    "querySelector": "[id=btn1]",
     "action": "click",
     "waitTime": 1000
   }
