@@ -15,7 +15,7 @@ function alertUser() {
 document.addEventListener("DOMContentLoaded", async function () {
   const actions = await fetchActions();
   var button = document.createElement("button");
-  button.textContent = "C";
+  button.textContent = "🤖";
   button.className = "intercom-button";
 
   function delay(ms) {
@@ -25,10 +25,19 @@ document.addEventListener("DOMContentLoaded", async function () {
   async function runScript() {
     for (const action of actions) {
       const { querySelector, action: userAction, text, waitTime } = action;
-      if (userAction === "click") {
-        document.querySelector(querySelector).click();
-      } else if (userAction === "type") {
-        document.querySelector(querySelector).value = action.text;
+      switch (userAction) {
+        case "click": {
+          document.querySelector(querySelector).click();
+          break;
+        }
+        case "type": {
+          document.querySelector(querySelector).value = action.text;
+          break;
+        }
+        default: {
+          console.log("No actions match");
+          break;
+        }
       }
       await delay(waitTime || 100);
     }
