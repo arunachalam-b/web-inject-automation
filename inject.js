@@ -1,7 +1,5 @@
-async function fetchActions() {
-  const response = await fetch(
-    "https://gogosoon.s3.us-east-2.amazonaws.com/web-inject-automation-test/web-inject-automation.json"
-  );
+async function fetchActions(actionsUrl) {
+  const response = await fetch(actionsUrl);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
@@ -12,8 +10,26 @@ function alertUser() {
   alert("Hello. This is a alert triggered by a script");
 }
 
+function getActionsUrl() {
+  const scripts = document.getElementsByTagName("script");
+  for (const script of scripts) {
+    if (!script?.src) {
+      continue;
+    }
+
+    const urlParams = new URLSearchParams(script?.src?.split("?")[1]);
+    const actionsUrl = urlParams?.get("actions_url");
+    if (!actionsUrl) {
+      continue;
+    }
+
+    return actionsUrl;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async function () {
-  const actions = await fetchActions();
+  const actionsUrl = getActionsUrl();
+  const actions = await fetchActions(actionsUrl);
   var button = document.createElement("button");
   button.textContent = "🤖";
   button.className = "intercom-button";
